@@ -1,3 +1,4 @@
+import 'package:catalog_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -10,7 +11,7 @@ class HomePage extends StatelessWidget {
         title: const Text("Catalog App"),
       ),
       body: const Center(child: Text("This is a flutter app")),
-      drawer: const Drawer(),
+      drawer: MyDrawer(),
     );
   }
 }
