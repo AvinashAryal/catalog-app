@@ -13,7 +13,7 @@ class CatalogHeader extends StatelessWidget {
     return Column(
       children: [
         "Catalog App".text.xl5.bold.color(MyTheme.darkBluishColor).make(),
-        "Trending Products".text.color(MyTheme.darkBluishColor).make(),
+        "Trending Products".text.xl.color(MyTheme.darkBluishColor).make(),
       ],
       crossAxisAlignment: CrossAxisAlignment.start,
     );
@@ -56,12 +56,20 @@ class CatalogItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               catalog.name.text.lg.color(MyTheme.darkBluishColor).bold.make(),
-              catalog.description.text.textStyle(context.captionStyle).make(),
+              catalog.description.text
+                  .textStyle(context.captionStyle)
+                  .color(MyTheme.darkBluishColor)
+                  .make(),
               ButtonBar(
                 alignment: MainAxisAlignment.spaceBetween,
                 buttonPadding: Vx.m0,
                 children: [
-                  "\$${catalog.price}".text.bold.xl.make(),
+                  "\$${catalog.price}"
+                      .text
+                      .bold
+                      .xl
+                      .color(MyTheme.darkBluishColor)
+                      .make(),
                   ElevatedButton(
                     onPressed: () {},
                     style: ButtonStyle(
@@ -69,15 +77,15 @@ class CatalogItem extends StatelessWidget {
                           MaterialStateProperty.all(MyTheme.darkBluishColor),
                       shape: MaterialStateProperty.all(StadiumBorder()),
                     ),
-                    child: "Buy".text.make(),
-                  ).pOnly(right: 16.0)
+                    child: "Add To Cart".text.sm.make(),
+                  ).pOnly(right: 16.0, top: 8.0)
                 ],
               ),
             ],
           ),
         )
       ],
-    )).white.square(200).rounded.make().py12();
+    )).white.square(150).rounded.make().py12();
   }
 }
 
@@ -97,6 +105,7 @@ class CatalogImage extends StatelessWidget {
         .color(MyTheme.creamColor)
         .make()
         .p16()
-        .w40(context);
+        .w32(context)
+        .h32(context);
   }
 }

@@ -15,12 +15,19 @@ class HomeDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       bottomNavigationBar: ButtonBar(
         alignment: MainAxisAlignment.spaceBetween,
         buttonPadding: Vx.m0,
         children: [
-          "\$${catalog.price}".text.bold.xl2.make(),
+          "\$${catalog.price}"
+              .text
+              .bold
+              .xl2
+              .color(MyTheme.darkBluishColor)
+              .make(),
           ElevatedButton(
             onPressed: () {},
             style: ButtonStyle(
@@ -33,32 +40,36 @@ class HomeDetailsPage extends StatelessWidget {
         ],
       ).p16(),
       backgroundColor: MyTheme.creamColor,
-      body: SafeArea(
-        child: Column(children: [
-          Hero(
+      body: Column(children: [
+        SafeArea(
+          child: Hero(
             tag: Key(catalog.id.toString()),
             child: Image.network(catalog.image).box.rounded.make(),
           ).h40(context),
-          Expanded(
-            child: VxArc(
-              height: 30.0,
-              child: Container(
-                width: context.screenWidth,
-                color: MyTheme.creamColor,
-                child: Column(children: [
-                  catalog.name.text.lg
-                      .color(MyTheme.darkBluishColor)
-                      .bold
-                      .make(),
-                  catalog.description.text
-                      .textStyle(context.captionStyle)
-                      .make(),
-                ]),
-              ),
+        ),
+        Expanded(
+          child: VxArc(
+            height: 30.0,
+            child: Container(
+              width: context.screenWidth,
+              color: MyTheme.creamColor,
+              child: Column(children: [
+                catalog.name.text.lg.color(MyTheme.darkBluishColor).bold.make(),
+                catalog.description.text
+                    .color(MyTheme.darkBluishColor)
+                    .textStyle(context.captionStyle)
+                    .make(),
+              ]),
             ),
           ),
-        ]),
-      ),
-    ).p16();
+        ),
+        "Erat gubergren dolor erat justo ut diam eos rebum rebum ipsum, et invidunt tempor eirmod diam invidunt. Eos sed et."
+            .text
+            .textStyle(context.captionStyle)
+            .xl
+            .make()
+            .p16(),
+      ]).p16(),
+    );
   }
 }
