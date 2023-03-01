@@ -12,11 +12,11 @@ class CatalogHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        "Catalog App".text.xl5.bold.color(MyTheme.darkBluishColor).make(),
-        "Trending Products".text.xl.color(MyTheme.darkBluishColor).make(),
+        "Catalog App".text.xl5.bold.make(),
+        "Trending Products".text.xl.make(),
       ],
       crossAxisAlignment: CrossAxisAlignment.start,
-    );
+    ).pOnly(bottom: 12);
   }
 }
 
@@ -28,7 +28,7 @@ class CatalogList extends StatelessWidget {
         itemCount: CatalogModel.items.length,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          final catalog = CatalogModel.items[index];
+          final catalog = CatalogModel.getByPosition(index);
           return InkWell(
               onTap: () => Navigator.push(
                   context,
@@ -55,37 +55,27 @@ class CatalogItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              catalog.name.text.lg.color(MyTheme.darkBluishColor).bold.make(),
-              catalog.description.text
-                  .textStyle(context.captionStyle)
-                  .color(MyTheme.darkBluishColor)
-                  .make(),
+              catalog.name.text.lg.bold.make(),
+              catalog.description.text.textStyle(context.captionStyle).make(),
               ButtonBar(
                 alignment: MainAxisAlignment.spaceBetween,
                 buttonPadding: Vx.m0,
                 children: [
-                  "\$${catalog.price}"
-                      .text
-                      .bold
-                      .xl
-                      .color(MyTheme.darkBluishColor)
-                      .make(),
+                  "\$${catalog.price}".text.bold.xl.make(),
                   ElevatedButton(
                     onPressed: () {},
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(MyTheme.darkBluishColor),
                       shape: MaterialStateProperty.all(StadiumBorder()),
                     ),
                     child: "Add To Cart".text.sm.make(),
-                  ).pOnly(right: 16.0, top: 8.0)
+                  ).pOnly(right: 16.0, top: 8.0),
                 ],
               ),
             ],
           ),
         )
       ],
-    )).white.square(150).rounded.make().py12();
+    )).square(150).rounded.color(context.cardColor).make().py12();
   }
 }
 
@@ -102,7 +92,6 @@ class CatalogImage extends StatelessWidget {
         .box
         .p16
         .rounded
-        .color(MyTheme.creamColor)
         .make()
         .p16()
         .w32(context)

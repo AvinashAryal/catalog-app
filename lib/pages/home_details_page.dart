@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:catalog_app/widgets/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -22,24 +20,18 @@ class HomeDetailsPage extends StatelessWidget {
         alignment: MainAxisAlignment.spaceBetween,
         buttonPadding: Vx.m0,
         children: [
-          "\$${catalog.price}"
-              .text
-              .bold
-              .xl2
-              .color(MyTheme.darkBluishColor)
-              .make(),
+          "\$${catalog.price}".text.bold.xl2.make(),
           ElevatedButton(
             onPressed: () {},
             style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(MyTheme.darkBluishColor),
+//              backgroundColor:
+//                  MaterialStateProperty.all(MyTheme.darkBluishColor),
               shape: MaterialStateProperty.all(StadiumBorder()),
             ),
-            child: "Buy".text.make(),
+            child: "Add To Cart".text.make(),
           ).w32(context),
         ],
       ).p16(),
-      backgroundColor: MyTheme.creamColor,
       body: Column(children: [
         SafeArea(
           child: Hero(
@@ -52,13 +44,9 @@ class HomeDetailsPage extends StatelessWidget {
             height: 30.0,
             child: Container(
               width: context.screenWidth,
-              color: MyTheme.creamColor,
               child: Column(children: [
-                catalog.name.text.lg.color(MyTheme.darkBluishColor).bold.make(),
-                catalog.description.text
-                    .color(MyTheme.darkBluishColor)
-                    .textStyle(context.captionStyle)
-                    .make(),
+                catalog.name.text.lg.bold.make(),
+                catalog.description.text.textStyle(context.captionStyle).make(),
               ]),
             ),
           ),
