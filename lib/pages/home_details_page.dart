@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../models/cart_model.dart';
 import '../models/phonedata.dart';
 
 class HomeDetailsPage extends StatelessWidget {
@@ -22,7 +24,10 @@ class HomeDetailsPage extends StatelessWidget {
         children: [
           "\$${catalog.price}".text.bold.xl2.make(),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              var cart = context.read<CartModel>();
+              cart.add(catalog);
+            },
             style: ButtonStyle(
 //              backgroundColor:
 //                  MaterialStateProperty.all(MyTheme.darkBluishColor),

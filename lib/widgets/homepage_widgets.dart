@@ -1,7 +1,9 @@
 import 'package:catalog_app/pages/home_details_page.dart';
 import 'package:catalog_app/widgets/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:catalog_app/models/cart_model.dart';
 
 import '../models/phonedata.dart';
 
@@ -42,6 +44,7 @@ class CatalogList extends StatelessWidget {
 class CatalogItem extends StatelessWidget {
   final Item catalog;
   const CatalogItem({super.key, required this.catalog});
+
   @override
   Widget build(BuildContext context) {
     return VxBox(
@@ -62,13 +65,24 @@ class CatalogItem extends StatelessWidget {
                 buttonPadding: Vx.m0,
                 children: [
                   "\$${catalog.price}".text.bold.xl.make(),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(StadiumBorder()),
-                    ),
-                    child: "Add To Cart".text.sm.make(),
-                  ).pOnly(right: 16.0, top: 8.0),
+                  Consumer(builder: (context, value, child) {
+                    return ElevatedButton(
+                        onPressed: () {
+                          var cart = context.read<CartModel>();
+                          cart.add(catalog);
+                        },
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(StadiumBorder()),
+                        ),
+                        child: Consumer<CartModel>(
+                          builder: ((context, value, child) {
+                            var cart = context.watch<CartModel>();
+                            return cart.items.contains(catalog)
+                                ? "Added To Cart".text.sm.make()
+                                : "Add To Cart".text.sm.make();
+                          }),
+                        )).pOnly(right: 16.0, top: 8.0);
+                  })
                 ],
               ),
             ],

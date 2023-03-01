@@ -1,38 +1,43 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:catalog_app/models/cart_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'package:catalog_app/widgets/themes.dart';
 
 import '../models/phonedata.dart';
-import '../widgets/themes.dart';
 
 class CartPage extends StatelessWidget {
-  final List<Item> itemlist;
-
   const CartPage({
     Key? key,
-    required this.itemlist,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var cart = context.watch<CartModel>();
     return Scaffold(
       appBar: AppBar(title: Text("Cart Page")),
-      body: itemlist.isEmpty
+      body: cart.items.isEmpty
           ? Center(child: Text("No items in the cart"))
-          : ListView.builder(
-              itemCount: itemlist.length,
-              itemBuilder: ((context, index) {
-                return CartItem(item: itemlist[index]);
-              }),
+          : Consumer<CartModel>(
+              builder: (context, value, child) {
+                return ListView.builder(
+                    itemCount: cart.items.length,
+                    itemBuilder: (context, index) {
+                      return CartItem(item: cart.items[index]);
+                    });
+              },
             ),
       bottomNavigationBar: ButtonBar(
         alignment: MainAxisAlignment.spaceBetween,
         buttonPadding: Vx.m0,
         children: [
-          "\$${100}".text.bold.xl2.make(),
+          Consumer<CartModel>(builder: ((context, value, child) {
+            final total = cart.totalPrice();
+            return "\$${total}".text.bold.xl3.make();
+          })),
           ElevatedButton(
             onPressed: () {},
             style: ButtonStyle(
@@ -64,8 +69,11 @@ class CartItem extends StatelessWidget {
         title: item.name.text.bold.make(),
         subtitle: "\$${item.price}".text.bold.make(),
         trailing: IconButton(
-            onPressed: () {},
-            icon: Icon(CupertinoIcons.delete, color: MyTheme.lightColor)),
+            onPressed: () {
+              var cart = context.read<CartModel>();
+              cart.remove(item);
+            },
+            icon: Icon(CupertinoIcons.delete, color: context.theme.hintColor)),
       ),
     ).box.rounded.p8.make();
   }

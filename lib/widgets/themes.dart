@@ -27,7 +27,7 @@ class MyTheme {
       colorScheme: const ColorScheme.dark(),
       canvasColor: darkColor,
       cardColor: lightColor,
-      hintColor: Colors.deepPurple,
+      hintColor: Colors.white,
       appBarTheme: AppBarTheme(
         color: Colors.black,
         elevation: 0,
